@@ -53,6 +53,21 @@ java -jar build/libs/martian-robots-1.0.jar < input.txt
 ```
 Windows PowerShell: use `.\gradlew.bat` instead of `./gradlew`
 
+## Edge Cases Tested
+Captured by SimulationRunnerTest.java
+
+| Case | Input | Expected | Why it matters |
+| :--- | :--- | :--- | :--- |
+| Scent prevents 2nd loss | `3 3 N / F` then `3 3 N / F` | `LOST` then `3 3 N` | Core scent logic |
+| Scent does NOT block safe move | Scent at `3 3`, then `3 3 E / F` | `4 3 E` | Scent only blocks falling off, not all moves |
+| Multiple scents independent | LOST at `0 0` and `5 3` | Both leave scent, both block later | Scent is per-position |
+| Robot stops after LOST | `3 3 N / FFF` | `3 3 N LOST` | Remaining instructions ignored |
+| Turning in place | `1 1 N / LLLL` | `1 1 N` | L/R don't change position |
+| Corner - all 4 edges | `0 0 W / F`, `0 0 S / F`, `5 3 N / F`, `5 3 E / F` | All `LOST` | Boundary check is `<0` and `>max` |
+| Max coordinate | Grid `50 50` OK, `51 50` throws | `IllegalArgumentException` | Spec: max is 50 (see `Constants.java`) |
+| Invalid command | `1 1 N / X` | `IllegalArgumentException` | Fail fast |
+| Instruction too long | Length >= 100 | `IllegalArgumentException` | Spec: <100 chars (see `Constants.java`) |
+| Blank lines | Empty line between robots | Skipped | Robust parsing |
 
 
 ## Project structure
@@ -61,6 +76,9 @@ src/main/java/com/martianrobots/
   App.java, Grid.java, Robot.java, Position.java, Direction.java
   Constants.java, SimulationRunner.java
   command/ Command.java, MoveForward.java, TurnLeft.java, TurnRight.java, CommandFactory.java
+
+src/main/java/com/martianrobots/
+  SimultationRunnerTest.java GridTest.java ConstantsTest.java
 ```
 
 ## Sample
