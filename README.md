@@ -16,12 +16,20 @@
 ./gradlew test
 java -jar build/libs/martian-robots-1.0.jar < input.txt
 ```
+If gradlew fails with 'Permission denied' try below :
+```bash
+chmod +x gradlew
+./gradlew clean build
+./gradlew test
+java -jar build/libs/martian-robots-1.0.jar < input.txt
+```
 Expected:
 ```
 1 1 E
 3 3 N LOST
 2 3 S
 ```
+4. You can keep modifying input.txt and run 'java -jar build/libs/martian-robots-1.0.jar < input.txt' to try different output
 
 ### Option 2: GitHub Actions (See it run automatically)
 1. Go to **Actions** tab -> Latest **CI** run
