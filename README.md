@@ -9,7 +9,7 @@
 ## Try it in 1 click - No install
 
 ### Option 1: GitHub Codespaces (Recommended for reviewers)
-1. Click **Code** (green button) -> **Codespaces** -> **Create codespace on main**
+1. In the github repo, Next to branch name and add file section - Click **Code** (green button) -> **Codespaces** -> **Create codespace on main**
 2. Wait 30s - Java 17 + Gradle 8.14.8 are pre-installed
 3. In terminal:
 ```bash
